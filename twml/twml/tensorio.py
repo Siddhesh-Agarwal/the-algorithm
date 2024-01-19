@@ -136,9 +136,7 @@ class TensorIO(object):
         """
         if name not in self._spec:
             raise ValueError(
-                "The specified key {} is not found in {}".format(
-                    name, self._tensorio_path
-                )
+                f"The specified key {name} is not found in {self._tensorio_path}"
             )
 
         data_type = self._spec[name]["type"]

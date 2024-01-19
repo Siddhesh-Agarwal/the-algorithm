@@ -40,7 +40,5 @@ def get_trainable_variables(all_trainable_variables, trainable_regexes):
 
     assert (
         trainable_variables
-    ), "Did not find trainable variables after filtering after filtering from {} number of vars originaly. All vars: {} and train regexes: {}".format(
-        len(all_trainable_variables), all_trainable_variables, trainable_regexes
-    )
+    ), f"Did not find trainable variables after filtering after filtering from {len(all_trainable_variables)} number of vars originaly. All vars: {all_trainable_variables} and train regexes: {trainable_regexes}"
     return trainable_variables

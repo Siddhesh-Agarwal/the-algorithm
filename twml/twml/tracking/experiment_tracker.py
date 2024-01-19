@@ -156,14 +156,14 @@ class ExperimentTracker(object):
             except ValueError as err:
                 logging.error(
                     "Could not generate valid experiment tracking path. Disabling tracking. "
-                    + "Error:\n{}".format(err)
+                    + f"Error:\n{err}"
                 )
                 self.disabled = True
 
         self.project_id = (
             None
             if self.disabled
-            else "{}:{}".format(self.path["owner"], self.path["project_name"])
+            else f"{self.path['owner']}:{self.path['project_name']}"
         )
         self.base_run_id = None if self.disabled else self.tracking_path
         self._current_run_name_suffix = None
@@ -212,9 +212,7 @@ class ExperimentTracker(object):
 
         if self._env_eligible_for_recording_experiment and self._graceful_shutdown_port:
             requests.post(
-                "http://localhost:{}/track_training_start".format(
-                    self._graceful_shutdown_port
-                )
+                f"http://localhost:{self._graceful_shutdown_port}/track_training_start"
             )
 
         if self.disabled or eval_hooks is None:
@@ -506,11 +504,9 @@ class ExperimentTracker(object):
         try:
             self._client.add_progress_report(report)
         except Exception as err:
-            logging.error(
-                "Failed to record metrics in ML Metastore. Error: {}".format(err)
-            )
-            logging.error("Run ID: {}".format(self._current_run_id))
-            logging.error("Progress Report: {}".format(report.to_json_string()))
+            logging.error(f"Failed to record metrics in ML Metastore. Error: {err}")
+            logging.error(f"Run ID: {self._current_run_id}")
+            logging.error(f"Progress Report: {report.to_json_string()}")
 
     def _register_for_graceful_shutdown(self):
         """
@@ -525,9 +521,7 @@ class ExperimentTracker(object):
             and self._env_eligible_for_recording_experiment
         ):
             return requests.post(
-                "http://localhost:{}/register_id/{}".format(
-                    self._graceful_shutdown_port, self._current_run_id
-                )
+                f"http://localhost:{self._graceful_shutdown_port}/register_id/{self._current_run_id}"
             )
 
     def _deregister_for_graceful_shutdown(self):
@@ -543,9 +537,7 @@ class ExperimentTracker(object):
             and self._env_eligible_for_recording_experiment
         ):
             return requests.post(
-                "http://localhost:{}/deregister_id/{}".format(
-                    self._graceful_shutdown_port, self._current_run_id
-                )
+                f"http://localhost:{self._graceful_shutdown_port}/deregister_id/{self._current_run_id}"
             )
 
     def _is_env_eligible_for_tracking(self):
@@ -590,9 +582,7 @@ class ExperimentTracker(object):
                 .replace(".", "_")
             )
 
-        return "{}_{}".format(
-            job_name, job_launch_time_formatted.strftime("%m_%d_%Y_%I_%M_%p")
-        )
+        return f"{job_name}_{job_launch_time_formatted.strftime('%m_%d_%Y_%I_%M_%p')}"
 
     @classmethod
     def guess_path(cls, save_dir, run_name=None):
@@ -603,7 +593,7 @@ class ExperimentTracker(object):
           (str) guessed path
         """
         if not run_name:
-            run_name = "Unnamed_{}".format(datetime.now().strftime("%m_%d_%Y_%I_%M_%p"))
+            run_name = f"Unnamed_{datetime.now().strftime('%m_%d_%Y_%I_%M_%p')}"
 
         if save_dir.startswith("hdfs://"):
             path_match = re.search(r"/user/([a-z0-9\-_]+)/([a-z0-9\-_]+)", save_dir)

@@ -238,7 +238,7 @@ def _main():
         )
         checkpoint_folder = os.path.join(opt.save_dir, "best_checkpoint")
         checkpoint = tf.train.latest_checkpoint(checkpoint_folder, latest_filename=None)
-        tf.logging.info("\n\nPrediction from Checkpoint: {:}.\n\n".format(checkpoint))
+        tf.logging.info(f"\n\nPrediction from Checkpoint: {checkpoint:}.\n\n")
         run_group_metrics_light_ranking_in_bq(
             trainer=trainer_pred, params=opt, checkpoint_path=checkpoint
         )

@@ -686,11 +686,7 @@ def list_files_by_datetime(
     flattened_files = list(itertools.chain.from_iterable(nested_files))
 
     if not flattened_files:
-        error_msg = "Files list is empty: base_path={base_path}, start_datetime={start_datetime}, end_datetime={end_datetime}".format(
-            base_path=base_path,
-            start_datetime=start_datetime,
-            end_datetime=end_datetime,
-        )
+        error_msg = f"Files list is empty: base_path={base_path}, start_datetime={start_datetime}, end_datetime={end_datetime}"
         raise OSError(error_msg)
 
     if sort:
@@ -720,9 +716,7 @@ def limit_sparse_tensor_size(sparse_tf, input_size_bits, mask_indices=True):
     if not isinstance(sparse_tf, tf.SparseTensor):
         raise TypeError(
             "Input argument `sparse_tf` should either be of type"
-            "twml.SparseTensor of tf.SparseTensor. Found type: {}".format(
-                type(sparse_tf)
-            )
+            f"twml.SparseTensor of tf.SparseTensor. Found type: {type(sparse_tf)}"
         )
     if mask_indices:
         indices = twml.limit_bits(sparse_tf.indices, input_size_bits)

@@ -12,9 +12,7 @@ class PartitionConstant(tf.keras.initializers.Constant):
             if not isinstance(self.value, np.ndarray):
                 raise ValueError(
                     "Currently, PartitionConstant only supports "
-                    "partitioning on np.ndarrays. Got {}".format(
-                        type(self.value).__name__
-                    )
+                    f"partitioning on np.ndarrays. Got {type(self.value).__name__}"
                 )
             offsets = partition_info.var_offset
             indices = tuple(

@@ -553,7 +553,7 @@ class DataRecordTrainer(Trainer):  # pylint: disable=abstract-method
             else:
                 # The user has not specified which direction is better for the stopping metric
                 kwargs["is_metric_larger_the_better"] = None
-            logging.info("Using the tree algorithm with kwargs {}".format(kwargs))
+            logging.info(f"Using the tree algorithm with kwargs {kwargs}")
 
         feature_importances = compute_feature_importances(
             trainer=self,

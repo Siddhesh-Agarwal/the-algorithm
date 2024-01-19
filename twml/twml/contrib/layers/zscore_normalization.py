@@ -55,14 +55,14 @@ class ZscoreNormalization(Layer):
         """Creates the moving_mean and moving_var tf.Variables of the layer."""
         input_dim = input_shape[1]
         self.moving_mean = self.add_variable(
-            "{}_mean/EMA".format(self.name),
+            f"{self.name}_mean/EMA",
             initializer=tf.constant_initializer(),
             shape=[input_dim],
             dtype=self.data_type,
             trainable=False,
         )
         self.moving_var = self.add_variable(
-            "{}_variance/EMA".format(self.name),
+            f"{self.name}_variance/EMA",
             initializer=tf.constant_initializer(),
             shape=[input_dim],
             dtype=self.data_type,
@@ -217,7 +217,7 @@ def zscore_normalization(
     dense_mask=None,
     zero_debias=True,
     handle_single=False,
-    **kwargs
+    **kwargs,
 ):
     """
     Args:

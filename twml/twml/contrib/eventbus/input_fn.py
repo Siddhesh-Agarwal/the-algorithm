@@ -26,8 +26,8 @@ def get_eventbus_data_record_generator(eventbus_reader):
         while True:
             record = eventbus_reader.read()
             if eventbus_reader.debug:
-                tf.logging.warn("counter: {}".format(counter[0]))
-                with open("tmp_record_{}.bin".format(counter[0]), "wb") as f:
+                tf.logging.warn(f"counter: {counter[0]}")
+                with open(f"tmp_record_{counter[0]}.bin", "wb") as f:
                     f.write(record)
                 counter[0] = counter[0] + 1
             yield record

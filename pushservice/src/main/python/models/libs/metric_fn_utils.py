@@ -80,9 +80,7 @@ def add_new_user_metrics(metric_fn):
     def metric_fn_with_new_users(graph_output, labels, weights):
         if USER_AGE_FEATURE_NAME not in graph_output:
             raise ValueError(
-                "In order to get metrics stratified by user age, {name} feature should be added to model graph output. However, only the following output keys were found: {keys}.".format(
-                    name=USER_AGE_FEATURE_NAME, keys=graph_output.keys()
-                )
+                f"In order to get metrics stratified by user age, {USER_AGE_FEATURE_NAME} feature should be added to model graph output. However, only the following output keys were found: {graph_output.keys()}."
             )
 
         metric_ops = metric_fn(graph_output, labels, weights)
@@ -249,9 +247,7 @@ def get_metric_fn(task_name, use_stratify_metrics, use_meta_batch=False):
     """
     if task_name not in METRIC_BOOK:
         raise ValueError(
-            "Task name of {task_name} not recognized. Unable to retrieve metrics.".format(
-                task_name=task_name
-            )
+            f"Task name of {task_name} not recognized. Unable to retrieve metrics."
         )
     class_names = METRIC_BOOK[task_name]
     if use_meta_batch:

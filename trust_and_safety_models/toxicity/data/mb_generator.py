@@ -197,14 +197,13 @@ class BalancedMiniBatchLoader(object):
         if size_limit:
             training_data = training_data[: size_limit * num_classes]
 
+        tox = (
+            100
+            * training_data[training_data.int_label == toxic_class].shape[0]
+            / nb_samples,
+        )
         print(
-            ".... {} examples, incl. {:.2f}% tox in train, {} classes".format(
-                nb_samples,
-                100
-                * training_data[training_data.int_label == toxic_class].shape[0]
-                / nb_samples,
-                num_classes,
-            )
+            f".... {nb_samples} examples, incl. {tox:.2f}% tox in train, {num_classes} classes"
         )
         label_groups = training_data.groupby("int_label")
         if self.huggingface:

@@ -131,7 +131,7 @@ class EventBusPipedBinaryRecordReader(BinaryRecordReader):
             try:
                 return self._read()
             except Exception as e:
-                logging.error("Error reading bytes for next record: {}".format(e))
+                logging.error(f"Error reading bytes for next record: {e}")
                 if self.debug:
                     raise
 
@@ -141,4 +141,4 @@ class EventBusPipedBinaryRecordReader(BinaryRecordReader):
             self._buffered_reader.close()
             self._pipe.terminate()
         except Exception as e:
-            logging.error("Error closing reader: {}".format(e))
+            logging.error(f"Error closing reader: {e}")

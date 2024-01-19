@@ -311,7 +311,7 @@ def update_pruning_signals(loss, decay=0.96, masks=None, method="Fisher"):
         masks = tf.get_collection(MASK_COLLECTION)
 
     if method not in ["Fisher"]:
-        raise ValueError("Pruning method '{0}' not supported.".format(method))
+        raise ValueError(f"Pruning method '{method}' not supported.")
 
     if not masks:
         return []
@@ -374,9 +374,7 @@ def prune(signals, masks=None):
                     tf.equal(l, k),
                     lambda: tf.scatter_update(
                         masks[k],
-                        tf.Print(
-                            i, [i], message="Pruning layer [{0}] at index ".format(k)
-                        ),
+                        tf.Print(i, [i], message=f"Pruning layer [{k}] at index "),
                         0.0,
                     ),
                     lambda: masks[k],

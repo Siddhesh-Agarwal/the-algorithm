@@ -28,9 +28,7 @@ class PermutedInputFnFactory(object):
         """
         if not (data_dir is None) ^ (file_list is None):
             raise ValueError(
-                "Exactly one of data_dir and file_list can be provided. Got {} for data_dir and {} for file_list".format(
-                    data_dir, file_list
-                )
+                f"Exactly one of data_dir and file_list can be provided. Got {data_dir} for data_dir and {file_list} for file_list"
             )
 
         file_list = (
@@ -57,16 +55,12 @@ class PermutedInputFnFactory(object):
                         self.records.append(record)
                 except tf.errors.OutOfRangeError:
                     logging.info(
-                        "Stopping after reading {} records out of {}".format(
-                            i, record_count
-                        )
+                        f"Stopping after reading {i} records out of {record_count}"
                     )
                     break
             if datarecord_filter_fn:
                 logging.info(
-                    "datarecord_filter_fn has been applied; keeping {} records out of {}".format(
-                        len(self.records), record_count
-                    )
+                    f"datarecord_filter_fn has been applied; keeping {len(self.records)} records out of {record_count}"
                 )
 
     def _get_record_generator(self):

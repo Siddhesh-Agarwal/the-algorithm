@@ -77,7 +77,7 @@ class IsotonicFeature(CalibrationFeature):
         if bins > n_samples:
             raise ValueError(
                 "The number of bins needs to be less than or equal to the number of samples. "
-                "Currently bins={0} and n_samples={1}.".format(bins, n_samples)
+                f"Currently bins={bins} and n_samples={n_samples}."
             )
 
         step = n_samples // bins
@@ -324,7 +324,7 @@ class IsotonicCalibrator(Calibrator):
             n_bin=self._xs_input.shape[1],
             xs_input=self._xs_input,
             ys_input=self._ys_input,
-            **self._kwargs
+            **self._kwargs,
         )
 
         return isotonic_layer

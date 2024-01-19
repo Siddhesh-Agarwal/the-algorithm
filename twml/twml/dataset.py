@@ -279,7 +279,7 @@ def cx_zk_path(path):
             "Path for zookeeper dataset pointer is None. You must specify a path."
         )
     return_path = "/".join([DEFAULT_ZOOKEEPER_BASE_ZNODE, path])
-    logging.info("Zookeeper path is: {}".format(return_path))
+    logging.info(f"Zookeeper path is: {return_path}")
     return return_path
 
 
@@ -387,9 +387,7 @@ def zookeeper_ordered_dataset(
             else:
                 chosen_file = my_files[counter_pre_value]
                 if verbose:
-                    logging.info(
-                        "{}. yielding {}".format(counter_pre_value, chosen_file)
-                    )
+                    logging.info(f"{counter_pre_value}. yielding {chosen_file}")
                 yield chosen_file
         zk.stop()
 

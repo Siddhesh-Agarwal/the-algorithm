@@ -8,8 +8,8 @@ import twml
 
 def write_list_to_hdfs_gfile(list_to_write, output_path):
     """Use tensorflow gfile to write a list to a location on hdfs"""
-    locname = "/tmp/{}".format(str(uuid.uuid4()))
-    with open(locname, "w") as f:
+    locname = f"/tmp/{uuid.uuid4()}"
+    with open(locname, "w", encoding=None) as f:
         for row in list_to_write:
             f.write("%s\n" % row)
     tf.io.gfile.copy(locname, output_path, overwrite=False)
